@@ -1,0 +1,45 @@
+<!-- <p>{{ products$ | async | json }}</p>
+<br /> -->
+
+<div fxLayout="row" fxLayout.lt-md="column" fxLayoutAligh.lt-md="space-evenly" fxLayout.lt-sm="column"
+    fxLayoutAligh.lt-sm="center center" class="container-outer">
+    <!-- <h2>Products</h2> -->
+
+    <!-- {{products$ | async | json}} -->
+
+    <mat-drawer-container class="example-container">
+        <!-- <mat-drawer mode="side" opened>
+            <app-sidebar></app-sidebar>
+        </mat-drawer> -->
+        <mat-drawer-content class="container">
+            <div class="content">
+                <div fxLayout="row wrap" fxLayoutGap="10px grid" fxLayout.lt-md="column">
+                    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="'33"
+                        *ngFor="let product of products$ | async" routerLinkActive="router-link-active">
+                        <mat-card class="mat-elevation-z4">
+                            <img mat-card-image src="{{ product.imageUrl }}" alt="Photo"
+                                [routerLink]="['/product', product.id]" />
+                            <mat-card-content>
+                                <h2 style="text-align: center; padding-top: 5px">
+                                    {{ product.name }}
+                                </h2>
+                                <!-- <p style="text-align: center;"> {{product.summary}} </p> -->
+                                <div [innerHTML]="product.summary"></div>
+                            </mat-card-content>
+                            <hr />
+                            <mat-card-actions style="text-align: center">
+                                <button class="warnButton" mat-stroked-button color="warn">
+                                    <strong>{{ product.price }} -,</strong>
+                                </button>
+                                <button mat-raised-button matTooltip="TILFØJ TIL KURV" color="primary"
+                                    (click)="addToCart(product)">
+                                    <mat-icon>add_shopping_cart</mat-icon>
+                                </button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>

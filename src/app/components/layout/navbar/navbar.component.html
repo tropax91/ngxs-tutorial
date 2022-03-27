@@ -1,25 +1,74 @@
 <mat-toolbar color="primary">
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-  >
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>My App</span>
-  <span class="example-spacer"></span>
-  <button
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
-  >
-    <mat-icon>favorite</mat-icon>
+  <button mat-button [routerLink]="['']" routerLinkActive="router-link-active">
+    <span>NGXS APP</span>
   </button>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
-  >
+  <button mat-button [routerLink]="['/products-list']" routerLinkActive="router-link-active">
+    Products
+  </button>
+  <span class="example-spacer"></span>
+  <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>shopping_cart</mat-icon>
+  </button> -->
+  <button mat-button [matMenuTriggerFor]="menu" fxShow="true" fxHide.lt-md
+    style="margin-right:50px; background-color: white; color:rgba(31, 41, 55, 1);">
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      <mat-icon matBadge="{{(cart$ | async).length}}" matBadgeColor="accent">shopping_cart</mat-icon>
+      <span fxFlex style="padding-left: 15px; font-size: small;">Indkøbskurv</span>
+    </div>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     <mat-icon>share</mat-icon>
   </button>
+
+  <mat-menu #menu="matMenu" class="matMenu" [hasBackdrop]="true">
+    <div fxLayout='row'>
+      <div fxFlex='50'>
+        <p style="padding: 10px 10px 0 10px;">{{(cart$ | async).length }} VARE </p>
+      </div>
+
+      <button class="view-cart-btn" color='primary' mat-button [routerLink]="'cart'">SE KURV</button>
+    </div>
+    <div fxLayout='column' *ngIf="cart$ | async as prods">
+      <div *ngIf="prods.length > 0" (click)='$event.stopPropagation()'>
+        <div fxLayout='row' *ngFor="let item of prods" class="mb-1">
+
+          <div fxFlex='40' style="padding: 5px 5px 5px 10px; color: #202020;">{{item.product.name}}
+            <br>
+            <div style="color: #fa8072;">1 x {{item.product.price}},-</div>
+          </div>
+
+          <div fxFlex='50'><img src="{{item.product.imageUrl}}" alt=""
+              style="width: 100px; height: 60px; padding: 5px;">
+          </div>
+          <div fxFlex='20'><button class="removebtn" mat-button (click)='removeItem(item.product)'>
+              <mat-icon color='warn' style="padding: 5px;margin-right: 35px;">delete</mat-icon>
+            </button>
+          </div>
+
+        </div>
+        <mat-divider></mat-divider>
+        <div class="total__price">Total: <span>100kr</span></div>
+        <mat-divider></mat-divider>
+        <div class="actions">
+          <button class="delete-btn" mat-button matTooltip="Fjern alle varer" matTooltipPosition='right'
+            (click)='emptyCart()'>
+            <span class="material-icons">
+              remove_shopping_cart
+            </span>
+          </button>
+          <button mat-raised-button matTooltip="Checkout" matTooltipPosition='left' class="checkout-btn"
+            [routerLink]="['/checkout']">
+            <mat-icon>check</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding: 10px;" *ngIf="(cart$ | async).length == 0">
+      <p class="emptyCart">Der er ingen varer i din Indkøbskurv</p>
+    </div>
+  </mat-menu>
 </mat-toolbar>

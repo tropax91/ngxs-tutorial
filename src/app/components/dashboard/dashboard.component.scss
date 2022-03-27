@@ -2,3 +2,29 @@
   padding: 10px;
   border: 2px solid rgb(216, 216, 20);
 }
+.inner-container {
+  padding: 20px;
+  border: 2px solid rgb(216, 131, 20);
+}
+
+example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}
+
+.container1 {
+  padding: 20px;
+}
+
+.site-content {
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+.post-content {
+  width: 100%;
+  margin-bottom: 5rem;
+}

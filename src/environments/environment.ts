@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://localhost:44327/api',
-  productUrl: ' http://paymentmodulebackend-development.azurewebsites.net/api',
+  taskTrackerUrl: ' https://localhost:44349/api',
 };
 
 /*

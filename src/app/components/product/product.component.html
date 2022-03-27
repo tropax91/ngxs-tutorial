@@ -1,0 +1,62 @@
+TESTING
+<div class="section">
+    <div fxLayout="row" fxLayoutGap="30px" class="row__container">
+        <div *ngIf="product$ | async as product" fxLayoutGap="35px" style="padding: 10px;" fxLayout.lt-md='column'
+            fxFlex.lt-md="100">
+            <mat-card class="pic-card" fxFlex="30" style="height: 200px; padding: 10px;">
+                <div class="img-showcase">
+                    <img src="{{(product$ | async).imageUrl}}" alt="image" style="height: 100%; width: 100%;">
+                </div>
+            </mat-card>
+            <mat-card fxFlex="70" class="mat-elevation-z0 summary">
+                <div class="product-content">
+                    <h2 class="product-title">name</h2>
+
+                    <div class="product-price">
+                        <!-- <p class="last-price">Old Price: <span>${{(product$ | async).price}}</span></p> -->
+                        <p class="new-price">Price: <span>{{(product$ | async).price}},-</span></p>
+                    </div>
+
+                    <div class="product-detail">
+                        <div [innerHTML]="(product$ | async).summary"></div>
+                    </div>
+                    <mat-divider style="width: 90%; margin-left: 30px;"></mat-divider>
+                    <div class="purchase-info">
+                        <!-- <input type="number" min="0" value="1"> -->
+
+                        <button mat-raised-button color="primary" type="button" class="btn"
+                            (click)='addToCart(product)'>
+                            LÆG I KURV
+                        </button>
+                        <!-- <button mat-stroked-button color="primary" type="button" class="btn to_shop"
+                [routerLink]="'/productList'">Return to shop</button> -->
+                    </div>
+                </div>
+            </mat-card>
+
+
+            <!-- Right column -->
+        </div>
+    </div>
+    <div fxLayout="row" class="row__container1">
+        <div fxFlex="90" class="child-1" fxLayoutAlign.lt-md="column" fxFlex.lt-sm="100" fxLayout="column">
+
+            <!-- Material Tab -->
+            <mat-card *ngIf="product$ | async as product" class="mat-elevation-z0 desc-card">
+                <mat-tab-group dynamicHeight animationDuration="0ms">
+                    <mat-tab label="Beskrivelse">
+                        <div [innerHTML]="(product$ | async).description"
+                            style="padding-left: 15px; padding-top: 15px;"></div>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card>
+        </div>
+        <!-- <div fxFlex="20">
+       
+      </div> -->
+    </div>
+</div>
+
+
+
+{{product$ | async | json}}
